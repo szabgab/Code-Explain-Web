@@ -43,9 +43,10 @@ get '/' => sub {
 		if (length $code > $LIMIT) {
 			$data{too_long} = length $code;
 		} else {
+			my $time = time;
 			my $log_file = path( config->{appdir}, 'logs', 'code.txt' );
 			if ( open my $fh, '>>', $log_file ) {
-				print $fh "$code\n\n";
+				print $fh "$time - $code\n\n";
 				close $fh;
 			}
 			require Code::Explain;
