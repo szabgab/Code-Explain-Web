@@ -31,6 +31,7 @@ get '/' => sub {
 	$code =~ s/^\s+|\s+$//g;
 
 
+
 	my %data = (
 		code_explain_version => $Code::Explain::VERSION,
 		limit                => $LIMIT,
@@ -42,6 +43,11 @@ get '/' => sub {
 		if (length $code > $LIMIT) {
 			$data{too_long} = length $code;
 		} else {
+			my $log_file = path( config->{appdir}, 'logs', 'code.txt' );
+			if ( open my $fh, '>>', $log_file ) {
+				print $fh "$code\n\n";
+				close $fh;
+			}
 			require Code::Explain;
 			my $ce = Code::Explain->new( code => $code );
 			$data{explain}     = $ce->explain();

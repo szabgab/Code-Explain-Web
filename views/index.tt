@@ -17,7 +17,7 @@
             <h3>Relations</h3>
             <ul class="links">
 
-              <li><a href="http://padre.perlide.org/">Padre, ther Perl IDE</a></li>
+              <li><a href="http://padre.perlide.org/">Padre, the Perl IDE</a></li>
               <li><a href="https://github.com/szabgab/Code-Explain">Code::Explain on Github</a></li>
               <li><a href="https://github.com/szabgab/Code-Explain-Web">Code::Explain::Web on Github</a></li>
             </ul>
