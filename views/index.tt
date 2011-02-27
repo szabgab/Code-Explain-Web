@@ -14,134 +14,64 @@
       <div id="sidebar">
         <ul id="sidebar-items">
           <li>
-            <h3>Join the community</h3>
+            <h3>Relations</h3>
             <ul class="links">
 
-              <li><a href="http://perldancer.org/">PerlDancer</a></li>
-              <li><a href="http://twitter.com/PerlDancer/">Official Twitter</a></li>
-              <li><a href="http://github.com/sukria/Dancer/">GitHub Community</a></li>
+              <li><a href="http://padre.perlide.org/">Padre, ther Perl IDE</a></li>
+              <li><a href="https://github.com/szabgab/Code-Explain">Code::Explain on Github</a></li>
+              <li><a href="https://github.com/szabgab/Code-Explain-Web">Code::Explain::Web on Github</a></li>
             </ul>
           </li>
           
-          <li>
-            <h3>Browse the documentation</h3>
-
-            <ul class="links">
-              <li><a
-              href="http://search.cpan.org/dist/Dancer/lib/Dancer/Introduction.pod">Introduction</a></li>
-              <li><a href="http://search.cpan.org/dist/Dancer/lib/Dancer/Cookbook.pod">Cookbook</a></li>
-              <li><a href="http://search.cpan.org/dist/Dancer/lib/Dancer/Deployment.pod">Deployment Guide</a></li>
-              <li><a
-              href="http://search.cpan.org/dist/Dancer/lib/Dancer/Tutorial.pod"
-              title="a tutorial to build a small blog engine with Dancer">Tutorial</a></li>
-            </ul>
-          </li>
-
-          <li>
-            <h3>Your application's environment</h3>
-
-            <ul>
-                <li>Location: <code>/home/gabor/work/Code-Explain-Web</code></li>
-                <li>Template engine: <code><% settings.template %></code></li>
-                <li>Logger: <code><% settings.logger %></code></li>
-                <li>Environment: <code><% settings.environment %></code></li>
-            </ul>
-
-          </li>
-        </ul>
+       </ul>
 
       </div>
 
       <div id="content">
         <div id="header">
-          <h1>Perl is dancing</h1>
-          <h2>You&rsquo;ve joined the dance floor!</h2>
+          <h1>Type in some Perl code</h1>
+          <h2>Using Code::Explain Version <% code_explain_version %></h2>
+          <h2>Current restriction <% limit %> characters</h2>
         </div>
 
         <div id="getting-started">
-          <h1>Getting started</h1>
-          <h2>Here&rsquo;s how to get dancing:</h2>
-                    
-          <h3><a href="#" id="about_env_link">About your application's environment</a></h3>
 
-          <div id="about-content" style="display: none;">
-            <table>
-                <tbody>
-                <tr>
-                    <td>Perl version</td>
-                    <td><tt>5.008008</tt></td>
-                </tr>
-                <tr>
-                    <td>Dancer version</td>
-                    <td><tt>1.2003</tt></td>
-                </tr>
-                <tr>
-                    <td>Backend</td>
-                    <td><tt><% settings.apphandler %></tt></td>
-                </tr>
-                <tr>
-                    <td>Appdir</td>
-                    <td><tt>/home/gabor/work/Code-Explain-Web</tt></td>
-                </tr>
-                <tr>
-                    <td>Template engine</td>
-                    <td><tt><% settings.template %></tt></td>
-                </tr>
-                <tr>
-                    <td>Logger engine</td>
-                    <td><tt><% settings.logger %></tt></td>
-                </tr>
-                <tr>
-                    <td>Running environment</td>
-                    <td><tt><% settings.environment %></tt></td>
-                </tr>
-                </tbody>
-            </table>
-          </div>
+<form method="GET">
+<textarea name="code" rows="5" cols="40"><% code %></textarea>
+<input type="submit" value="Explain">
+</form>
+<% html_code %>
+<% IF too_long %>
+  The current length limitation is <% limit %>. This code is <% too_long %> characters long.
+<% ELSE %>
+  <% IF explain %>
+    <hr />
+    <b>Explanation:</b><br />
+    <% explain %>
+  <% END %>
 
-    <script type="text/javascript">
-    $('#about_env_link').click(function() {
-        $('#about-content').slideToggle('fast', function() {
-            // ok
-        });
-    });
-    </script>
+  <% IF ppi_dump %>
+    <hr />
+    <b>PPI Dump:</b><br />
+    <table>
+    <% FOR r IN ppi_dump %>
+      <tr><td><% r %></td></tr>
+    <% END %>
+    </table>
+  <% END %>
 
+  <% IF ppi_explain %>
+    <hr />
+    <b>PPI Explain:</b><br />
+    <table>
+    <% FOR r IN ppi_explain %>
+      <tr><td><% r.code %></td><td><% r.text %></td></tr>
+    <% END %>
+    </table>
+  <% END %>
+<% END %>
+         </div>
 
-          <ol>          
-            <li>
-              <h2>Tune your application</h2>
-
-              <p>
-              Your application is configured via a global configuration file,
-              <tt>config.yml</tt> and an "environment" configuration file,
-              <tt>environments/development.yml</tt>. Edit those files if you
-              want to change the settings of your application.
-              </p>
-            </li>
-
-            <li>
-              <h2>Add your own routes</h2>
-
-              <p>
-              The default route that displays this page can be removed,
-              it's just here to help you get started. The template used to
-              generate this content is located in 
-              <code>views/index.tt</code>.
-              You can add some routes to <tt>lib/Code::Explain::Web.pm</tt>. 
-              </p>
-            </li>
-
-            <li>
-                <h2>Enjoy web development again</h2>
-
-                <p>
-                Once you've made your changes, restart your standalone server
-                (bin/app.pl) and you're ready to test your web application.
-                </p>
-            </li>
-
-          </ol>
-        </div>
+       </div>
       </div>
     </div>

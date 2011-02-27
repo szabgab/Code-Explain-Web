@@ -3,8 +3,62 @@ use Dancer ':syntax';
 
 our $VERSION = '0.1';
 
+my $LIMIT = 20;
+
+use Code::Explain;
+
+
+=head1 NAME
+
+Code::Explain::Web - Experimental web interface for the Code::Explain service
+
+=head1 SYNIPSIS
+
+L<http://code.szabgab.com/>
+
+
+=head1 DESCRIPTION
+
+=head1 Author
+
+Gabor Szabo L<http://szabgab.com/>
+
+=cut
+
 get '/' => sub {
-    template 'index';
+	my $code = params->{'code'};
+	$code = '' if not defined $code;
+	$code =~ s/^\s+|\s+$//g;
+
+
+	my %data = (
+		code_explain_version => $Code::Explain::VERSION,
+		limit                => $LIMIT,
+		code                 => $code,
+	);
+	if ($code) {
+		$data{html_code} = _escape($code);
+
+		if (length $code > $LIMIT) {
+			$data{too_long} = length $code;
+		} else {
+			require Code::Explain;
+			my $ce = Code::Explain->new( code => $code );
+			$data{explain}     = $ce->explain();
+			$data{ppi_dump}    = [ map { _escape($_) } $ce->ppi_dump ];
+			$data{ppi_explain} = [ map { $_->{code} = _escape($_->{code}); $_ } $ce->ppi_explain ];
+		} 
+	}
+
+	return template 'index', \%data;
 };
 
+sub _escape {
+	my $txt = shift;
+	$txt =~ s/</&lt;/g;
+	$txt =~ s/>/&gt;/g;
+	return $txt;
+}
+
 true;
+
