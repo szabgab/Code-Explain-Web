@@ -3,9 +3,9 @@ use warnings;
 use ExtUtils::MakeMaker;
 
 WriteMakefile(
-    NAME                => 'Code::Explain::Web',
-    AUTHOR              => q{YOUR NAME <youremail@example.com>},
-    VERSION_FROM        => 'lib/Code::Explain::Web.pm',
+    NAME                => 'Code-Explain-Web',
+    AUTHOR              => q{Gabor Szabo <szabgab@cpan.org>},
+    VERSION_FROM        => 'lib/Code/Explain/Web.pm',
     ABSTRACT            => 'YOUR APPLICATION ABSTRACT',
     ($ExtUtils::MakeMaker::VERSION >= 6.3002
       ? ('LICENSE'=> 'perl')
