@@ -1,4 +1,22 @@
-  
+<script type="text/javascript">
+$().ready(function() 
+  $('#explain').click(function() {
+    var code = $('#code').val();
+    //$('#result').slideToggle('fast', function() {});
+    $('#result').show('fast', function() {});
+    $('#code_echo').empty();
+    var code_html = code;
+    code_html = code_html.replace(/</g, "&lt;");
+    code_html = code_html.replace(/>/g, "&gt;");
+    //alert(code_html);
+    $('#code_echo').append(code_html);
+    //jQuery.get('/', 
+    //alert($('#code').val());
+  })
+)
+
+</script>
+
 <!-- 
     Credit goes to the Ruby on Rails team for this page 
     has been heavily based on the default Rails page that is 
@@ -37,9 +55,32 @@
         <div id="getting-started">
 
 <form method="GET">
-<textarea name="code" rows="5" cols="40"><% code %></textarea>
-<input type="submit" value="Explain">
+<textarea name="code" rows="5" cols="40" id="code"><% code %></textarea>
+<input type="button" value="Explain" id="explain">
 </form>
+
+
+<div id="error" style="display: none;">
+  The current length limitation is <div id="limit"></div>. This code is <div id="length"></div> characters long.
+</div>
+
+<div id="result" style="display: none;">
+   <div id="code_echo"></div>
+   <hr />
+   <b>Explanation:</b><br />
+   <div id="explain"></div>
+
+   <hr />
+   <b>PPI Dump:</b><br />
+   <div id="ppi_dump"></div>
+
+
+   <hr />
+   <b>PPI Explain:</b><br />
+   <div id="ppi_explain"></div>
+</div>
+
+
 <% html_code %>
 <% IF too_long %>
   The current length limitation is <% limit %>. This code is <% too_long %> characters long.

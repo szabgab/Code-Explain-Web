@@ -12,7 +12,7 @@ use Code::Explain;
 
 Code::Explain::Web - Experimental web interface for the Code::Explain service
 
-=head1 SYNIPSIS
+=head1 SYNOPSIS
 
 L<http://code.szabgab.com/>
 
