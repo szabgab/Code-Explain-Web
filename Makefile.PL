@@ -12,9 +12,10 @@ WriteMakefile(
       : ()),
     PL_FILES            => {},
     PREREQ_PM => {
-        'Test::More' => 0,
-        'YAML'       => 0,
-        'Dancer'     => 1.2003,
+        'Test::More'    => 0,
+        'YAML'          => 0,
+        'Dancer'        => 1.2003,
+		'Code::Explain' => '0.02',
     },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean               => { FILES => 'Code::Explain::Web-*' },
